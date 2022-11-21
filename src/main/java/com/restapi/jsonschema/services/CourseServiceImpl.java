@@ -41,10 +41,4 @@ public class CourseServiceImpl implements CourseService {
 		return course;		
 	}
 
-	@Override
-	public String updateCourse(String course, String tablename) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

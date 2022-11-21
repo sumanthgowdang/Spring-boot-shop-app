@@ -11,8 +11,6 @@ public interface CourseService {
 	
 	public String addCourse(String requestStr, String json);
 
-	public String updateCourse(String course, String tablename);
-
 	public int deleteCourse(int parseInt, String tablename);
 	
 }

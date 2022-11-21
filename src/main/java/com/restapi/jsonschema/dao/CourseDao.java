@@ -13,8 +13,12 @@ public class CourseDao {
 	private JdbcTemplate jdbctemplate;
 
 	public int insertCourse(String jsonObj, String tablename) {
-		String query="INSERT INTO " + tablename + " (select * from json_populate_record(NULL::" + tablename + " ,'" + jsonObj + "'))";
-		int update = this.jdbctemplate.update(query);
+		String id = "id";
+		String name = "name";
+		String description = "description";
+		String query1 = "INSERT INTO " + tablename + " (select * from json_populate_record(NULL::" + tablename + " ,'" + jsonObj + "')) "
+				+ "on conflict (" +id+ ") do update set("+id+","+name+","+description+")=(select * from json_populate_record(NULL::"+ tablename + " , '" + jsonObj + "'))";
+		int update = this.jdbctemplate.update(query1);
 		return update; 
 	}
 

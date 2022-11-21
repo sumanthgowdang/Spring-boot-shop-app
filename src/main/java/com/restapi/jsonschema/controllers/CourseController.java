@@ -69,9 +69,10 @@ public class CourseController {
 	}
 
 	@DeleteMapping("/courses/{tablename}/{courseId}")
-	public ResponseEntity<HttpStatus> deleteCourse(@PathVariable String courseId, @PathVariable String tablename){
+	public ResponseEntity<String> deleteCourse(@PathVariable String courseId, @PathVariable String tablename){
 		int update = this.courseService.deleteCourse(Integer.parseInt(courseId),tablename);
-		return (update > 0) ?  new ResponseEntity<HttpStatus>(HttpStatus.OK): new ResponseEntity<HttpStatus>(HttpStatus.NOT_FOUND);
+		return (update > 0) ?  new ResponseEntity<String>("Course : " + Integer.parseInt(courseId) + " DELETED SUCCESSFULLY",HttpStatus.OK): 
+			new ResponseEntity<String>("Course : "+ Integer.parseInt(courseId) + " - NOT FOUND",HttpStatus.NOT_FOUND);
 		
 	}
 

@@ -1,7 +1,7 @@
 {
    "$schema": "http://json-schema.org/draft-07/schema#",
-   "title": "Youtube Channel",
-   "description": "Youtube Channel for software development training",
+   "title": "REST app",
+   "description": "Basic REST app/JTI interface",
    "type": "object",
 	
    "properties": {
