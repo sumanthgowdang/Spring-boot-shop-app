@@ -35,14 +35,16 @@ public class CourseController {
 
 	@GetMapping("/courses/{tablename}")
 	public ResponseEntity<String> getAllCourses(@PathVariable String tablename){
-		List<JSONObject> jo =  this.courseService.getAllCourses(tablename);
-		return new ResponseEntity<String>( jo.toString(), HttpStatus.OK);
+		List<JSONObject> jsonObj =  this.courseService.getAllCourses(tablename);
+		return (jsonObj.isEmpty() == true) ? new ResponseEntity<String>( "No Course FOUND", HttpStatus.NOT_FOUND) :
+		 new ResponseEntity<String>( jsonObj.toString(), HttpStatus.OK);
 
 	}
 	@GetMapping("/courses/{tablename}/{courseId}")
 	public ResponseEntity<String> getCourse(@PathVariable String tablename,  @PathVariable String courseId){
-		List<JSONObject> jo =  this.courseService.getCourse(Integer.parseInt(courseId), tablename);
-		return new ResponseEntity<String>( jo.toString(), HttpStatus.OK);
+		List<JSONObject> jsonObj =  this.courseService.getCourse(Integer.parseInt(courseId), tablename);
+		return (jsonObj.isEmpty() == true) ? new ResponseEntity<String>( "Course : "+ Integer.parseInt(courseId) + " - NOT FOUND", HttpStatus.NOT_FOUND) :
+			 new ResponseEntity<String>( jsonObj.toString(), HttpStatus.OK);
 
 	}
 

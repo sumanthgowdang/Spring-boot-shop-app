@@ -24,13 +24,14 @@ public class CourseDao {
 	@SuppressWarnings("deprecation")
 	public int insertCourse(String jsonstr, String tablename) {
 		JsonObject jsonObj = new JsonParser().parse(jsonstr).getAsJsonObject();
-		List<String> columnNames = new ArrayList<String>();
+		List<String> keyList = new ArrayList<String>();
 		Set<Entry<String, JsonElement>> entrySet = jsonObj.entrySet();
 		for(Map.Entry<String,JsonElement> entry : entrySet){
-			columnNames.add(entry.getKey());
+			keyList.add(entry.getKey());
 		}
-		String query = "INSERT INTO " + tablename + " (select * from json_populate_record(NULL::" + tablename + " ,'" + jsonObj + "')) "
-				+ "on conflict (" +columnNames.get(0)+ ") do update set("+columnNames.get(0)+","+columnNames.get(1)+","+columnNames.get(2)+")=(select * from json_populate_record(NULL::"+ tablename + " , '" + jsonObj + "'))";
+		String columnNames =  String.join(",",keyList);
+		String query = "INSERT INTO " + tablename  + " (select * from json_populate_record(NULL::" + tablename + " ,'" + jsonObj + "')) "
+				+ "on conflict (id) do update set("+columnNames+")=(select * from json_populate_record(NULL::"+ tablename + " , '" + jsonObj + "'))";
 		int update = this.jdbctemplate.update(query);
 		return update; 
 	}
