@@ -24,6 +24,8 @@ import com.restapi.jsonschema.services.FruitService;
 
 @RestController
 public class FruitController {
+	
+    
 	@Autowired
 	private FruitService fService;
 	

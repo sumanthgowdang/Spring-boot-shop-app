@@ -11,8 +11,7 @@ import com.restapi.jsonschema.domain.Fruit;
 
 public interface FruitRepository extends JpaRepository<Fruit, Long>{
 
-	List<Fruit> findByName(String name);
-
+	List<Fruit> findByNameContainingIgnoreCase(String name);
 	void deleteUsersByName(String name);
 	@Query("FROM Fruit Where name=:name")
 	Fruit getByName(String name);

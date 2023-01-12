@@ -26,6 +26,17 @@ public class Transactions {
 	private int quantity;
 	private String name;
 	private String customer;
+	private int status;
+	public int getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+
 	public Long getId() {
 		return Id;
 	}

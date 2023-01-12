@@ -11,6 +11,7 @@
 <div align="center">
     <h1>Add new Customer</h1>
     <br />
+    <div class="alert alert-primary" role="alert" th:text="${message}" th:if="${message}"></div>
      <div class="col-sm-4">
     <form action="#" th:action="@{/savecus}" th:object="${customer}" method="post">
 

@@ -118,7 +118,12 @@ public class StudentController {
     public String buy(@ModelAttribute("transaction") Transactions std,RedirectAttributes redirAttrs) {
     	String trans=tService.buy(std);
     	redirAttrs.addFlashAttribute("message",trans);
+    	if(std.getStatus()==1)
         return "redirect:/tra";
+    	else if(std.getStatus()==3)
+            return "redirect:/new1";
+    	else
+            return "redirect:/";
     }    
     @GetMapping("/new2")
     public String addtra(Model model) {
