@@ -10,6 +10,8 @@ import com.restapi.jsonschema.domain.Customer;
 import com.restapi.jsonschema.domain.Transactions;
 @Repository
 public interface TransactionsRepository extends JpaRepository<Transactions, Long>{
+	@Query("FROM Transactions Where customer=:customer")
+	List<Transactions> findBycustomer_name(String customer);
 	@Query("FROM Transactions Where customer_id=:customer_id")
 	List<Transactions> findBycustomer_id(Long customer_id);
 	@Query("FROM Transactions Where fruit_id=:fruit_id")

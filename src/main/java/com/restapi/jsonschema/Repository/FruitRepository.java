@@ -6,9 +6,10 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import com.restapi.jsonschema.domain.Fruit;
-
+@Repository
 public interface FruitRepository extends JpaRepository<Fruit, Long>{
 
 	List<Fruit> findByNameContainingIgnoreCase(String name);

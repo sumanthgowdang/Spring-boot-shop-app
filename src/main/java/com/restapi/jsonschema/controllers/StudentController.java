@@ -1,7 +1,10 @@
 package com.restapi.jsonschema.controllers;
 
 
+import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,7 @@ import com.restapi.jsonschema.domain.Customer;
 import com.restapi.jsonschema.domain.Fruit;
 import com.restapi.jsonschema.domain.Student;
 import com.restapi.jsonschema.domain.Transactions;
+import com.restapi.jsonschema.domain.UserDetailsImpl;
 import com.restapi.jsonschema.services.CustomerService;
 import com.restapi.jsonschema.services.FruitService;
 import com.restapi.jsonschema.services.StudentService;
@@ -30,13 +34,30 @@ public class StudentController {
 	
 	@Autowired
     private FruitService service;
+	
+    @Autowired
+	private CustomerService cService;
 
+	
+    /*@RequestMapping(value = "/buy", method = RequestMethod.POST)
+    public String buy(@ModelAttribute("transaction") Transactions std,RedirectAttributes redirAttrs, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        System.out.println(principal.getName());*/
+        
     @GetMapping("/")
-    public String viewHomePage(Model model) {
+    public String viewHomePage(Model model,HttpServletRequest request) {
+    	
+    	Principal principal = request.getUserPrincipal();
+    	String role=cService.getRole(principal.getName());
         List<Fruit> listfruit = service.getFruits();
         model.addAttribute("listfruit", listfruit);
-        System.out.print("Get / ");	
-        return "index";
+        if(!role.toLowerCase().equals("user")) {
+        	System.out.println("notUser"+role);
+        	return "index";}
+        else {
+        	System.out.println("User"+role);
+        	return "indexUser";
+        }
     }
 
     @GetMapping("/new")
@@ -66,8 +87,7 @@ public class StudentController {
     }
     
     
-    @Autowired
-	private CustomerService cService;
+
     @GetMapping("/cus")
     public String viewHomePageCustomer(Model model) {
         List<Customer> listcustomer = cService.getCustomers();
@@ -110,11 +130,32 @@ public class StudentController {
     public String viewHomePageTransaction(Model model) {
         List<Transactions> listtra = tService.getAll();
         model.addAttribute("listtra", listtra);
-        System.out.print("Get / ");	
         return "index2";
+    }
+    @GetMapping("/trame")
+    public String viewMyTransaction(Model model,HttpServletRequest request) {
+    	
+    	Principal principal = request.getUserPrincipal();
+        List<Transactions> listtra = tService.getMy(principal.getName());
+        model.addAttribute("listtra", listtra);
+        return "transactionMe";
     }
     
     @RequestMapping(value = "/buy", method = RequestMethod.POST)
+    public String buy(@ModelAttribute("transaction") Transactions std,RedirectAttributes redirAttrs, HttpServletRequest request) {
+        Principal principal = request.getUserPrincipal();
+        System.out.println(principal.getName());
+        std.setCustomer(principal.getName());   
+        String trans=tService.buy(std);
+        
+    	redirAttrs.addFlashAttribute("message",trans);
+    	if(std.getStatus()==1)
+        return "redirect:/trame";
+    	else
+            return "redirect:/";
+    }
+    
+    /*@RequestMapping(value = "/buy", method = RequestMethod.POST)
     public String buy(@ModelAttribute("transaction") Transactions std,RedirectAttributes redirAttrs) {
     	String trans=tService.buy(std);
     	redirAttrs.addFlashAttribute("message",trans);
@@ -124,7 +165,7 @@ public class StudentController {
             return "redirect:/new1";
     	else
             return "redirect:/";
-    }    
+    }    */
     @GetMapping("/new2")
     public String addtra(Model model) {
         model.addAttribute("transactions", new Transactions());

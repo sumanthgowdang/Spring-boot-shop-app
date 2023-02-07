@@ -18,13 +18,22 @@
       
  		<div alight="left">
             <tr>
-                <label class="form-label" >Fruit Name</label>
+                <label class="form-label" >Name</label>
                 <td>
 	                <input type="hidden" th:field="*{Id}" />
 	                <input type="text" th:field="*{name}" class="form-control" placeholder="Name" />
                 </td>
             </tr>
-         </div>   
+         </div>  
+         <div alight="left">
+            <tr>
+                <label class="form-label" >Password</label>
+                <td>
+	                <input type="hidden" th:field="*{Id}" />
+	                <input type="text" th:field="*{password}" class="form-control" placeholder="password" />
+                </td>
+            </tr>
+         </div> 
             
           	<div alight="left">
           
@@ -32,6 +41,16 @@
                  <label class="form-label" >Phone_no</label>
                 <td><input type="text" th:field="*{phone_no}" class="form-control" placeholder="Phone_no" /></td>
             </tr>
+            </div>
+            <div alight="left">
+            <tr>
+                <label class="form-label" >Role</label>
+                <td>
+	                <input type="hidden" th:field="*{Id}" />
+	                <input type="text" th:field="*{role}" class="form-control" placeholder="role" />
+                </td>
+            </tr>
+         </div>
 			<br>
             <tr>
             <td colspan="2"><button type="submit" class="btn btn-info">Save</button> </td>

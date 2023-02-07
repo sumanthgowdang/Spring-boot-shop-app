@@ -1,5 +1,6 @@
 package com.restapi.jsonschema.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,11 @@ public class TransactionsService {
 		// TODO Auto-generated method stub
 		return trans.findAll();
 	}
+	
+	public List<Transactions> getMy(String name) {
+		// TODO Auto-generated method stub
+		return trans.findBycustomer_name(name);
+	}
 
 	public List<Transactions> getCustomerTransactions(Long customer_id) {
 		// TODO Auto-generated method stub
@@ -47,13 +53,8 @@ public class TransactionsService {
 	public String buy(Transactions tra) {
 		// TODO Auto-generated method stub
 		Fruit fruit=fRepository.getByName(tra.getName());
-		System.out.println(fruit.toString());
 		if(fruit!=null) {
-			System.out.println("fruit!!!");
 		Customer customer=cRepository.getByName(tra.getCustomer());
-//		System.out.println(customer.toString());
-		if(customer!=null) {
-			System.out.println("customer!!!");
 		tra.setCustomer_id(customer.getId());
 		tra.setFruit_id(fruit.getId());
 		if(fruit.getQuantity()>=tra.getQuantity()) {
@@ -61,6 +62,7 @@ public class TransactionsService {
 			fruit.setQuantity(fruit.getQuantity()-tra.getQuantity());
 			fruit.setId(tra.getFruit_id());
 			tra.setCost(fruit.getPrice()*tra.getQuantity());
+			tra.setDate(new Date());
 			fRepository.save(fruit);
 			trans.save(tra);
 			return "Transaction Successful . your Bill amount is Rs"+tra.getCost();
@@ -70,11 +72,10 @@ public class TransactionsService {
 			return "quantity is less,Transaction is UnSuccessful";
 		}
 		}
+		else {
 		tra.setStatus(3);
-		return "sorry "+tra.getCustomer()+" is not present please add him first to continue the shopping"; 
-		}
-		tra.setStatus(4);
 		return "sorry "+tra.getName()+" fruit is not present please see the fruit details"; 
+		}
 		
 	}
 

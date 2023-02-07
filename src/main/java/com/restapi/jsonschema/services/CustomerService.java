@@ -52,5 +52,9 @@ public class CustomerService {
     public void delete(long id) {
     	cRepository.deleteById(id);
     }
+
+	public String getRole(String name) {
+		return cRepository.getByName(name).getRole();
+	}
 }
 

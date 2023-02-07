@@ -9,6 +9,7 @@
 <body>
 <div>
 	<h2 >Spring Boot Transaction</h2>
+	<h5 align="right"><a th:href="@{'/logout'}">Log Out</a></h5>
 	<div class="alert alert-primary" role="alert" th:text="${message}" th:if="${message}"></div>
 	<div>
 	<div >
@@ -53,8 +54,7 @@
   <thead class="thead-dark">
     <tr>
       		<th>ID</th>
-            <th>fruit_id</th>
-            <th>Customer_id</th>
+            <th>Date & Time</th>
             <th>Name</th>
             <th>Customer Name</th>
             <th>quantity</th>
@@ -64,8 +64,7 @@
   <tbody>
       <tr  th:each="tra : ${listtra }">
 		<td th:text="${tra.Id}">ID</td>
-		<td th:text="${tra.fruit_id}">Fruit_id</td>
-		<td th:text="${tra.customer_id}">customer_id</td>	
+		<td th:text="${tra.date}">Date</td>	
 		<td th:text="${tra.name}">Name</td>
 		<td th:text="${tra.customer}">Customer name</td>
 		<td th:text="${tra.quantity}">Quantity</td>	

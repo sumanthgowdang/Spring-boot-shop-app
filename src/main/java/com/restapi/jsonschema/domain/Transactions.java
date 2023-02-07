@@ -1,5 +1,7 @@
 package com.restapi.jsonschema.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,12 +16,24 @@ public class Transactions {
 	@javax.persistence.Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
+	private Date date;
+	public Date getDate() {
+		return date;
+	}
+
+
+	public void setDate(Date date) {
+		this.date = new Date();
+	}
+
+
 	public Transactions(Long id, int quantity, String name, String customer) {
 		super();
 		Id = id;
 		this.quantity = quantity;
 		this.name = name;
 		this.customer = customer;
+		this.date=new Date();
 	}
 	private Long fruit_id;
 	private Long customer_id;
@@ -120,6 +134,7 @@ public class Transactions {
 		this.fruit_id = fruit_id;
 		this.customer_id = customer_id;
 		this.quantity = quantity;
+		this.date=new Date();
 	}
 
 
@@ -132,6 +147,7 @@ public class Transactions {
 		this.name = name;
 		this.customer = customer;
 		this.cost=cost;
+		this.date=new Date();
 	}
 	
 	

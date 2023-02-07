@@ -8,25 +8,24 @@
 </head>
 <body>
 <div>
-	<h2 >Spring Boot Customer</h2>
+	<h2 >Spring Boot Transaction</h2>
 	<h5 align="right"><a th:href="@{'/logout'}">Log Out</a></h5>
+	<div class="alert alert-primary" role="alert" th:text="${message}" th:if="${message}"></div>
 	<div>
 	<div >
                  <table class="table">
 	<tr>
-	<th>		   
-		     <h3><a  th:href="@{'/new1'}">Add new Customer</a></h3>     
+	<th>	   
+		     <h3><a  th:href="@{'/new2'}">Buy</a></h3>     
 	</th>
 	<th>		   
 		     <h3><a  th:href="@{'/'}">Fruit Details</a></h3>     
 	</th>
-	<th>	   
-		     <h3><a  th:href="@{'/tra'}">Transaction Details</a></h3>     
-	</th>
-	<th>	   
-		     <h3><a  th:href="@{'/new2'}">Buy</a></h3>     
-	</th>
 	</tr>
+	</div>
+	<div >
+                 <table class="table">
+
 	</div>
 	<tr>
 	
@@ -35,26 +34,22 @@
                  <table class="table">
   <thead class="thead-dark">
     <tr>
-      		<th>Customer ID</th>
+      		<th>ID</th>
+            <th>Date & Time</th>
             <th>Name</th>
-            <th>Phone No</th>
-            <th>Role</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th>Customer Name</th>
+            <th>quantity</th>
+            <th>cost</th>
    	</tr>
   </thead>
   <tbody>
-      <tr  th:each="customer : ${listcustomer }">
-		<td th:text="${customer.Id}">ID</td>
-		<td th:text="${customer.name}">Name</td>
-		<td th:text="${customer.phone_no}">Phone No</td>	
-		<td th:text="${customer.role}">Role</td>		
-		<td>
-			<a th:href="@{'/editcus/' + ${customer.Id}}">Edit</a>
-		</td>							    
-		<td>
-			<a th:href="@{'/deletecus/' + ${customer.Id}}">Delete</a>
-		</td>		    
+      <tr  th:each="tra : ${listtra }">
+		<td th:text="${tra.Id}">ID</td>
+		<td th:text="${tra.date}">Date</td>	
+		<td th:text="${tra.name}">Name</td>
+		<td th:text="${tra.customer}">Customer name</td>
+		<td th:text="${tra.quantity}">Quantity</td>	
+		<td th:text="${tra.cost}">Cost</td>		  
 		</tr> 
    
   </tbody>
